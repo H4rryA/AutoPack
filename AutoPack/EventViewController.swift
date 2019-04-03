@@ -20,6 +20,12 @@ class EventViewController: UIViewController {
         super.viewDidLoad()
         eventManager = EventManager(delegate: self)
         setupEventTable()
+        
+        for child in parent!.children {
+            if let c = child as? BackpackViewController {
+                delegate = c
+            }
+        }
     }
     
     // MARK: Initialize View
@@ -36,6 +42,9 @@ extension EventViewController: EventManagerDelegate {
         if let addItemVC = parent?.storyboard?.instantiateViewController(withIdentifier: "addItemViewController") as? AddItemViewController {
             addItemVC.event = event
             addItemVC.items = delegate.getItems()
+            if let notes = event.notes {
+                addItemVC.selectedItems = findItems(with: notes)
+            }
             addItemVC.delegate = self
             present(addItemVC, animated: true, completion: nil)
         }
@@ -49,6 +58,24 @@ extension EventViewController: EventManagerDelegate {
     
     func modalDismissed(event: EKEvent, items: [Item]) {
         self.eventManager.edit(event: event, with: items)
+    }
+    
+    func findItems(with notes: String) -> [Item] {
+        var itemNames = [String.SubSequence]()
+        if let index = notes.firstIndex(of: "🎒")  {
+            itemNames = String(notes[notes.index(index, offsetBy: 11)...]).split(separator: "\n")
+        }
+        
+        var items = [Item]()
+        for item in delegate.getItems() {
+            for name in itemNames {
+                if item.name == name {
+                    items.append(item)
+                    break
+                }
+            }
+        }
+        return items
     }
 }
 

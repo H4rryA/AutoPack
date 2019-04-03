@@ -17,3 +17,9 @@ class Item {
         self.name = name
     }
 }
+
+extension Item: Equatable {
+    static func == (lhs: Item, rhs: Item) -> Bool {
+        return lhs.rfid == rhs.rfid
+    }
+}

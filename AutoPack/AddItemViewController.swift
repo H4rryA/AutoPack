@@ -28,17 +28,26 @@ class AddItemViewController: UIViewController {
         itemTable.dataSource = self
         itemTable.allowsMultipleSelection = true
         
-        selectedItems = []
+        updateSelectedItems()
     }
 
     @IBAction func submitItems(_ sender: Any) {
         if let indices = itemTable.indexPathsForSelectedRows {
+            selectedItems = []
             for index in indices {
                 selectedItems.append(items[index.row])
             }
         }
         dismiss(animated: true) {
             self.delegate.modalDismissed(event: self.event, items: self.selectedItems)
+        }
+    }
+    
+    private func updateSelectedItems() {
+        for item in selectedItems {
+            if let index = items.firstIndex(where: { (i) -> Bool in i == item }) {
+            itemTable.selectRow(at: IndexPath(row: index, section: 0), animated: false, scrollPosition: .top)
+            }
         }
     }
 }

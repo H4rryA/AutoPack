@@ -47,7 +47,7 @@ class EventManager: NSObject {
     }
     
     func edit(event: EKEvent, with items: [Item]) {
-        var eventItems = "\n🎒\nAutoPack\n"
+        var eventItems = "\n🎒AutoPack"
         for item in items {
             eventItems += "\n" + item.name
         }
@@ -83,7 +83,7 @@ extension EventManager: UITableViewDataSource {
         if events[indexPath.row].hasNotes {
             notes = events[indexPath.row].notes!
             if let index = notes.firstIndex(of: "🎒")  {
-                notes = String(notes[notes.index(index, offsetBy: 11)...])
+                notes = String(notes[notes.index(index, offsetBy: 10)...])
                 let items = notes.split(separator: "\n")
                 notes = ""
                 for item in items {
