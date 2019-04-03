@@ -11,8 +11,6 @@ import UIKit
 
 class StartViewController: UIViewController {
     
-    private let SEARCH_INTERVAL = 604800.0
-    
     @IBOutlet var sheetView: UIView!
     @IBOutlet weak var handleView: UIView!
     @IBOutlet weak var eventTable: UITableView!
@@ -20,8 +18,7 @@ class StartViewController: UIViewController {
     public var homeView: UIView!
     public var fullScreen: CGRect!
     
-    private var store: EKEventStore!
-    private var events: [EKEvent]!
+    private var eventManager: EventManager!
     
     private var startHeight: CGFloat {
         return UIScreen.main.bounds.height - 200
@@ -37,16 +34,7 @@ class StartViewController: UIViewController {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(StartViewController.panGesture))
         view.addGestureRecognizer(panGesture)
         
-        store = EKEventStore.init()
-        store.requestAccess(to: .event) { (status, error) in
-            if status {
-                self.findEvents()
-            } else {
-                print(error!.localizedDescription)
-            }
-        }
-        
-        events = []
+        eventManager = EventManager(delegate: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -94,7 +82,8 @@ class StartViewController: UIViewController {
     }
     
     private func setupEventTable() {
-        eventTable.dataSource = self
+        eventTable.dataSource = eventManager
+        eventTable.delegate   = eventManager
         eventTable.isUserInteractionEnabled = false
         eventTable.register(UINib(nibName: "EventCell", bundle: Bundle.main), forCellReuseIdentifier: "eventCell")
     }
@@ -165,53 +154,14 @@ class StartViewController: UIViewController {
             }, completion: nil)
         }
     }
+}
 
-    // MARK: Calendar Functions
-    
-    func findEvents() {
-        let calendars = store.calendars(for: .event)
-        let predicate = store.predicateForEvents(withStart: Date(timeIntervalSinceNow: 0), end: Date(timeIntervalSinceNow: SEARCH_INTERVAL), calendars: calendars)
-        
-        events = store.events(matching: predicate)
-        for event in events {
-            print(event.description)
-        }
+extension StartViewController: EventManagerDelegate {
+    func reloadTable() {
         DispatchQueue.main.async {
             self.eventTable.reloadData()
         }
     }
-}
-
-extension StartViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return events.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath) as! EventCell
-        
-        cell.nameLabel.text  = events[indexPath.row].title
-        cell.itemsLabel.text = events[indexPath.row].notes
-        
-        if let startDate = events[indexPath.row].startDate,
-            let endDate   = events[indexPath.row].endDate {
-            if events[indexPath.row].isAllDay == false {
-                cell.timeLabel.text = DateFormatter.localizedString(from: startDate, dateStyle: .none, timeStyle: .short) + " - " + DateFormatter.localizedString(from: endDate, dateStyle: .none, timeStyle: .short)
-                if Calendar.current.isDate(startDate, inSameDayAs: endDate) {
-                    cell.dateLabel.text = DateFormatter.localizedString(from: startDate, dateStyle: .short, timeStyle: .none)
-                } else {
-                    cell.dateLabel.text = DateFormatter.localizedString(from: startDate, dateStyle: .short, timeStyle: .none) + " - " + DateFormatter.localizedString(from: endDate, dateStyle: .short, timeStyle: .none)
-                }
-            } else {
-                cell.timeLabel.text = "All Day"
-                cell.dateLabel.text = DateFormatter.localizedString(from: startDate, dateStyle: .short, timeStyle: .none)
-            }
-        }
-        
-        return cell
-    }
-    
-    
 }
 
 class EventCell: UITableViewCell {
