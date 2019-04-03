@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C04C7DE922555330003267B0 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04C7DE822555330003267B0 /* MainTabController.swift */; };
 		C07BB34B22543E6A006D612A /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07BB34A22543E6A006D612A /* EventViewController.swift */; };
 		C07F771E22543EB100E48515 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07F771D22543EB100E48515 /* Color.swift */; };
 		C07F77202254538E00E48515 /* EventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C07F771F2254538E00E48515 /* EventCell.xib */; };
@@ -33,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C04C7DE822555330003267B0 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 		C07BB34A22543E6A006D612A /* EventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
 		C07F771D22543EB100E48515 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		C07F771F2254538E00E48515 /* EventCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventCell.xib; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				C0CF57672230A3CF0067F1FE /* AutoPack.xcdatamodeld */,
 				C0CF576C2230A3D10067F1FE /* LaunchScreen.storyboard */,
 				C0CF57642230A3CF0067F1FE /* Main.storyboard */,
+				C04C7DE822555330003267B0 /* MainTabController.swift */,
 			);
 			path = AutoPack;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 				C07F77222254573A00E48515 /* EventManager.swift in Sources */,
 				C0CF57632230A3CF0067F1FE /* BackpackViewController.swift in Sources */,
 				C07BB34B22543E6A006D612A /* EventViewController.swift in Sources */,
+				C04C7DE922555330003267B0 /* MainTabController.swift in Sources */,
 				C0CF57612230A3CF0067F1FE /* AppDelegate.swift in Sources */,
 				C0B6BB462250425D00FA773B /* Item.swift in Sources */,
 				C07F772A2254626300E48515 /* AddItemViewController.swift in Sources */,

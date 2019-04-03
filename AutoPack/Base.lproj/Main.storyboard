@@ -147,16 +147,17 @@
             </objects>
             <point key="canvasLocation" x="2008.6956521739132" y="537.72321428571422"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Main Tab Controller-->
         <scene sceneID="Txz-eS-c1j">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Xlg-6c-k0H" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Xlg-6c-k0H" customClass="MainTabController" customModule="AutoPack" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="syC-fC-cNA">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
+                        <outlet property="tabBar" destination="syC-fC-cNA" id="vBZ-3i-Uo1"/>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="fE3-Xf-eho"/>
                         <segue destination="HQD-WJ-k6z" kind="relationship" relationship="viewControllers" id="Njb-3L-GOS"/>
                     </connections>
