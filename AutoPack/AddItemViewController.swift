@@ -18,7 +18,7 @@ class AddItemViewController: UIViewController {
     public var event: EKEvent!
     public var items: [Item]!
     public var selectedItems: [Item]!
-    public var delegate: StartViewController!
+    public var delegate: EventViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()

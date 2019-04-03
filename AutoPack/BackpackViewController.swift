@@ -8,11 +8,10 @@
 import CoreBluetooth
 import UIKit
 
-class ViewController: UIViewController {
+class BackpackViewController: UIViewController {
     public let ITEM_ARRAY_KEY = "items"
     private let sectionTitles = ["Pocket 1", "Pocket 2"]
     
-    private var startViewController: StartViewController!
     @IBOutlet weak var tableView: UITableView!
     
     private var items: [[Item]]!
@@ -33,26 +32,9 @@ class ViewController: UIViewController {
         //DispatchQueue.main.perform(#selector(View), with: nil, afterDelay: 5)
         
         // Initialize View
-        startViewController = StartViewController()
-        startViewController.homeView = self.view
-        startViewController.fullScreen = self.view.frame
-        startViewController.delegate = self
-        navigationController?.addChild(startViewController)
-        
-        setupView()
         setupTable()
     }
-
-    private func setupView() {
-        view.clipsToBounds = true
-        
-        self.addChild(startViewController)
-        self.view.addSubview(startViewController.view)
-        startViewController.didMove(toParent: self)
-        startViewController.view.frame = CGRect(x: 0, y: view.frame.maxY,
-                                                width: view.frame.width, height: view.frame.height)
-    }
-
+    
     private func setupTable() {
         items = []
         tableView.dataSource = self
@@ -69,7 +51,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: CBCentralManagerDelegate {
+extension BackpackViewController: CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
         case .unknown:
@@ -102,7 +84,7 @@ extension ViewController: CBCentralManagerDelegate {
     }
 }
 
-extension ViewController: CBPeripheralDelegate {
+extension BackpackViewController: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         guard let services = peripheral.services else { return }
         
@@ -120,7 +102,7 @@ extension ViewController: CBPeripheralDelegate {
     }
 }
 
-extension ViewController: UITableViewDataSource {
+extension BackpackViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if items.count > section {
             return items[section].count
@@ -152,7 +134,7 @@ extension ViewController: UITableViewDataSource {
     
 }
 
-extension ViewController: StartVCDelegate {
+extension BackpackViewController: EventVCDelegate {
     func getItems() -> [Item] {
         return self.items.flatMap({ $0 })
     }

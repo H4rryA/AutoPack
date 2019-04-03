@@ -7,15 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C07BB34B22543E6A006D612A /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07BB34A22543E6A006D612A /* StartViewController.swift */; };
-		C07F771C22543EA800E48515 /* StartSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = C07F771B22543EA800E48515 /* StartSheet.xib */; };
+		C07BB34B22543E6A006D612A /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07BB34A22543E6A006D612A /* EventViewController.swift */; };
 		C07F771E22543EB100E48515 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07F771D22543EB100E48515 /* Color.swift */; };
 		C07F77202254538E00E48515 /* EventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C07F771F2254538E00E48515 /* EventCell.xib */; };
 		C07F77222254573A00E48515 /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07F77212254573A00E48515 /* EventManager.swift */; };
 		C07F772A2254626300E48515 /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07F77292254626300E48515 /* AddItemViewController.swift */; };
 		C0B6BB462250425D00FA773B /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B6BB452250425D00FA773B /* Item.swift */; };
 		C0CF57612230A3CF0067F1FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CF57602230A3CF0067F1FE /* AppDelegate.swift */; };
-		C0CF57632230A3CF0067F1FE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CF57622230A3CF0067F1FE /* ViewController.swift */; };
+		C0CF57632230A3CF0067F1FE /* BackpackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CF57622230A3CF0067F1FE /* BackpackViewController.swift */; };
 		C0CF57662230A3CF0067F1FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0CF57642230A3CF0067F1FE /* Main.storyboard */; };
 		C0CF57692230A3CF0067F1FE /* AutoPack.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C0CF57672230A3CF0067F1FE /* AutoPack.xcdatamodeld */; };
 		C0CF576B2230A3D10067F1FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0CF576A2230A3D10067F1FE /* Assets.xcassets */; };
@@ -34,8 +33,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C07BB34A22543E6A006D612A /* StartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
-		C07F771B22543EA800E48515 /* StartSheet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StartSheet.xib; sourceTree = "<group>"; };
+		C07BB34A22543E6A006D612A /* EventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
 		C07F771D22543EB100E48515 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		C07F771F2254538E00E48515 /* EventCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventCell.xib; sourceTree = "<group>"; };
 		C07F77212254573A00E48515 /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
@@ -43,7 +41,7 @@
 		C0B6BB452250425D00FA773B /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		C0CF575D2230A3CF0067F1FE /* AutoPack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoPack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0CF57602230A3CF0067F1FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C0CF57622230A3CF0067F1FE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C0CF57622230A3CF0067F1FE /* BackpackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackpackViewController.swift; sourceTree = "<group>"; };
 		C0CF57652230A3CF0067F1FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C0CF57682230A3CF0067F1FE /* AutoPack.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AutoPack.xcdatamodel; sourceTree = "<group>"; };
 		C0CF576A2230A3D10067F1FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -99,11 +97,10 @@
 				C07F771D22543EB100E48515 /* Color.swift */,
 				C07F77212254573A00E48515 /* EventManager.swift */,
 				C0B6BB452250425D00FA773B /* Item.swift */,
-				C07BB34A22543E6A006D612A /* StartViewController.swift */,
-				C0CF57622230A3CF0067F1FE /* ViewController.swift */,
+				C07BB34A22543E6A006D612A /* EventViewController.swift */,
+				C0CF57622230A3CF0067F1FE /* BackpackViewController.swift */,
 				C0CF576A2230A3D10067F1FE /* Assets.xcassets */,
 				C07F771F2254538E00E48515 /* EventCell.xib */,
-				C07F771B22543EA800E48515 /* StartSheet.xib */,
 				C0CF57672230A3CF0067F1FE /* AutoPack.xcdatamodeld */,
 				C0CF576C2230A3D10067F1FE /* LaunchScreen.storyboard */,
 				C0CF57642230A3CF0067F1FE /* Main.storyboard */,
@@ -205,7 +202,6 @@
 			files = (
 				C0CF576E2230A3D10067F1FE /* LaunchScreen.storyboard in Resources */,
 				C0CF576B2230A3D10067F1FE /* Assets.xcassets in Resources */,
-				C07F771C22543EA800E48515 /* StartSheet.xib in Resources */,
 				C07F77202254538E00E48515 /* EventCell.xib in Resources */,
 				C0CF57662230A3CF0067F1FE /* Main.storyboard in Resources */,
 			);
@@ -226,8 +222,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C07F77222254573A00E48515 /* EventManager.swift in Sources */,
-				C0CF57632230A3CF0067F1FE /* ViewController.swift in Sources */,
-				C07BB34B22543E6A006D612A /* StartViewController.swift in Sources */,
+				C0CF57632230A3CF0067F1FE /* BackpackViewController.swift in Sources */,
+				C07BB34B22543E6A006D612A /* EventViewController.swift in Sources */,
 				C0CF57612230A3CF0067F1FE /* AppDelegate.swift in Sources */,
 				C0B6BB462250425D00FA773B /* Item.swift in Sources */,
 				C07F772A2254626300E48515 /* AddItemViewController.swift in Sources */,
