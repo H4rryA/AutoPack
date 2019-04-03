@@ -10,9 +10,10 @@ import UIKit
 
 class BackpackViewController: UIViewController {
     public let ITEM_ARRAY_KEY = "items"
-    private let sectionTitles = ["Pocket 1", "Pocket 2"]
+    private let sectionTitles = ["Pocket 1", "Pocket 2", "Not in Backpack"]
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var navigationBar: UINavigationBar!
     
     private var items: [[Item]]!
     private var centralManager: CBCentralManager!
@@ -32,6 +33,7 @@ class BackpackViewController: UIViewController {
         //DispatchQueue.main.perform(#selector(View), with: nil, afterDelay: 5)
         
         // Initialize View
+        navigationBar.topItem?.title = "AutoPack"
         setupTable()
     }
     
@@ -42,8 +44,9 @@ class BackpackViewController: UIViewController {
         let mathNotebook = Item(rfid: "1", name: "Math Notebook")
         let englishNotebook = Item(rfid: "2", name: "English Notebook")
         let laptop = Item(rfid: "0", name: "Laptop")
+        let water = Item(rfid: "3", name: "Water Bottle")
         
-        items = [[mathNotebook, englishNotebook], [laptop]]
+        items = [[mathNotebook, englishNotebook], [laptop], [water]]
         
         //let defaults = UserDefaults.standard
         //items.append(defaults.array(forKey: ITEM_ARRAY_KEY + "0") as? [Item])
@@ -120,6 +123,10 @@ extension BackpackViewController: UITableViewDataSource {
             cell = UITableViewCell()
         }
         cell!.textLabel?.text = items[pocket][item].name
+        
+        if pocket == 2 {
+            cell!.textLabel?.textColor = UIColor.gray
+        }
         
         return cell!
     }

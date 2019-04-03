@@ -19,28 +19,39 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="VNT-7d-3Ok">
-                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <rect key="frame" x="0.0" y="140" width="414" height="673"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <sections/>
                             </tableView>
+                            <navigationBar contentMode="scaleToFill" largeTitles="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v5a-bR-S6D">
+                                <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <items>
+                                    <navigationItem title="Title" id="V7T-Pa-jmy"/>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="VNT-7d-3Ok" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="09I-5A-cV1"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="VNT-7d-3Ok" secondAttribute="trailing" id="8Hl-nF-gfI"/>
-                            <constraint firstItem="VNT-7d-3Ok" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ZuO-GL-6xo"/>
+                            <constraint firstItem="VNT-7d-3Ok" firstAttribute="top" secondItem="v5a-bR-S6D" secondAttribute="bottom" id="GnQ-mj-p4s"/>
+                            <constraint firstItem="v5a-bR-S6D" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="KAA-xB-b0h"/>
+                            <constraint firstItem="v5a-bR-S6D" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ZeV-oa-XDG"/>
+                            <constraint firstItem="v5a-bR-S6D" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="gkc-du-q4c"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="VNT-7d-3Ok" secondAttribute="bottom" id="sNa-b1-qAM"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Backpack" id="HW1-cg-Edo"/>
                     <connections>
+                        <outlet property="navigationBar" destination="v5a-bR-S6D" id="LKV-F0-VGk"/>
                         <outlet property="tableView" destination="VNT-7d-3Ok" id="1RJ-2g-FAp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2010" y="-108"/>
+            <point key="canvasLocation" x="2008.6956521739132" y="-108.48214285714285"/>
         </scene>
         <!--Add Item View Controller-->
         <scene sceneID="T23-u1-isW">
@@ -102,16 +113,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b5a-2f-9mE">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <items>
+                                    <navigationItem title="Title" id="j2p-Nm-EvN"/>
+                                </items>
+                            </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="04w-4v-BAO">
-                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="b5a-2f-9mE" firstAttribute="trailing" secondItem="YKI-zj-S2d" secondAttribute="trailing" id="DbM-pe-S4C"/>
                             <constraint firstItem="YKI-zj-S2d" firstAttribute="bottom" secondItem="04w-4v-BAO" secondAttribute="bottom" id="LxF-3B-IOA"/>
-                            <constraint firstItem="04w-4v-BAO" firstAttribute="top" secondItem="YKI-zj-S2d" secondAttribute="top" id="Nja-pV-krP"/>
+                            <constraint firstItem="04w-4v-BAO" firstAttribute="top" secondItem="b5a-2f-9mE" secondAttribute="bottom" id="Rs8-yu-3JH"/>
+                            <constraint firstItem="b5a-2f-9mE" firstAttribute="leading" secondItem="YKI-zj-S2d" secondAttribute="leading" id="SHM-Zu-9Xk"/>
                             <constraint firstItem="YKI-zj-S2d" firstAttribute="trailing" secondItem="04w-4v-BAO" secondAttribute="trailing" id="gIk-hG-BjY"/>
+                            <constraint firstItem="b5a-2f-9mE" firstAttribute="top" secondItem="YKI-zj-S2d" secondAttribute="top" id="gZP-nM-N8I"/>
                             <constraint firstItem="04w-4v-BAO" firstAttribute="leading" secondItem="YKI-zj-S2d" secondAttribute="leading" id="pGu-Wh-d9H"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YKI-zj-S2d"/>
@@ -119,11 +140,12 @@
                     <tabBarItem key="tabBarItem" title="Events" id="EBe-Ho-9jP"/>
                     <connections>
                         <outlet property="eventTable" destination="04w-4v-BAO" id="vQo-Vb-OdD"/>
+                        <outlet property="navigationBar" destination="b5a-2f-9mE" id="y2S-tH-3X5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c1P-0t-GLV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2009" y="538"/>
+            <point key="canvasLocation" x="2008.6956521739132" y="537.72321428571422"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Txz-eS-c1j">

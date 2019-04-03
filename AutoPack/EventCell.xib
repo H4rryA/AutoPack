@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AiE-4y-IfI">
-                        <rect key="frame" x="20" y="55" width="78" height="21"/>
+                        <rect key="frame" x="25" y="55" width="78" height="21"/>
                         <accessibility key="accessibilityConfiguration" identifier="eventName"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="fTD-K6-Hi2"/>
@@ -29,7 +29,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Items" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3VX-sV-I9g">
-                        <rect key="frame" x="20" y="91" width="75.5" height="21"/>
+                        <rect key="frame" x="25" y="91" width="75.5" height="21"/>
                         <accessibility key="accessibilityConfiguration" identifier="eventItems"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="iWm-5c-Kui"/>
@@ -39,7 +39,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VhD-Wd-O9U">
-                        <rect key="frame" x="323.5" y="91" width="70.5" height="21"/>
+                        <rect key="frame" x="318.5" y="91" width="70.5" height="21"/>
                         <accessibility key="accessibilityConfiguration" identifier="eventDate"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="sIG-40-SyF"/>
@@ -49,7 +49,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LtD-BS-7CG">
-                        <rect key="frame" x="322" y="55" width="72" height="21"/>
+                        <rect key="frame" x="317" y="55" width="72" height="21"/>
                         <accessibility key="accessibilityConfiguration" identifier="eventTime"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="aCA-C7-ecF"/>
@@ -62,10 +62,10 @@
                 <constraints>
                     <constraint firstAttribute="bottomMargin" secondItem="3VX-sV-I9g" secondAttribute="bottom" id="7oc-cF-5jl"/>
                     <constraint firstAttribute="bottomMargin" secondItem="VhD-Wd-O9U" secondAttribute="bottom" id="8Pl-MH-0HU"/>
-                    <constraint firstItem="LtD-BS-7CG" firstAttribute="trailing" secondItem="gtJ-x7-yo4" secondAttribute="trailingMargin" id="8of-mA-JsP"/>
-                    <constraint firstItem="AiE-4y-IfI" firstAttribute="leading" secondItem="gtJ-x7-yo4" secondAttribute="leadingMargin" id="JW2-ZW-TCV"/>
-                    <constraint firstItem="3VX-sV-I9g" firstAttribute="leading" secondItem="gtJ-x7-yo4" secondAttribute="leadingMargin" id="Kxa-sl-Iss"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="VhD-Wd-O9U" secondAttribute="trailing" id="U3P-YL-kxv"/>
+                    <constraint firstItem="LtD-BS-7CG" firstAttribute="trailing" secondItem="gtJ-x7-yo4" secondAttribute="trailingMargin" constant="-5" id="8of-mA-JsP"/>
+                    <constraint firstItem="AiE-4y-IfI" firstAttribute="leading" secondItem="gtJ-x7-yo4" secondAttribute="leadingMargin" constant="5" id="JW2-ZW-TCV"/>
+                    <constraint firstItem="3VX-sV-I9g" firstAttribute="leading" secondItem="gtJ-x7-yo4" secondAttribute="leadingMargin" constant="5" id="Kxa-sl-Iss"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="VhD-Wd-O9U" secondAttribute="trailing" constant="5" id="U3P-YL-kxv"/>
                     <constraint firstItem="VhD-Wd-O9U" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3VX-sV-I9g" secondAttribute="trailing" constant="20" id="aBt-bz-XF0"/>
                     <constraint firstItem="LtD-BS-7CG" firstAttribute="top" secondItem="gtJ-x7-yo4" secondAttribute="topMargin" id="dQr-bH-HUF"/>
                     <constraint firstItem="3VX-sV-I9g" firstAttribute="top" secondItem="AiE-4y-IfI" secondAttribute="bottom" constant="15" id="mNG-Wo-iXQ"/>

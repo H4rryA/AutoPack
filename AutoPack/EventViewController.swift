@@ -12,6 +12,7 @@ import UIKit
 class EventViewController: UIViewController {
     
     @IBOutlet weak var eventTable: UITableView!
+    @IBOutlet weak var navigationBar: UINavigationBar!
     
     private var eventManager: EventManager!
     public var delegate: EventVCDelegate!
@@ -26,6 +27,8 @@ class EventViewController: UIViewController {
                 delegate = c
             }
         }
+        
+        navigationBar.topItem?.title = "Events"
     }
     
     // MARK: Initialize View
