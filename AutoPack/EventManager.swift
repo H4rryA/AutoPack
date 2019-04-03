@@ -45,6 +45,28 @@ class EventManager: NSObject {
         }
         delegate.reloadTable()
     }
+    
+    func edit(event: EKEvent, with items: [Item]) {
+        var eventItems = "\n🎒\n AutoPack\n"
+        for item in items {
+            eventItems += "\n" + item.name
+        }
+        eventItems += "\n🎒"
+        
+        var notes = ""
+        if event.hasNotes {
+            notes = event.notes!
+            if let index = notes.firstIndex(of: "🎒")  {
+                notes = String(notes[..<index])
+            }
+        }
+        event.notes = notes + eventItems
+        do {
+            try store.save(event, span: .futureEvents)
+        } catch {
+            print(error)
+        }
+    }
 }
 
 extension EventManager: UITableViewDataSource {
@@ -79,7 +101,7 @@ extension EventManager: UITableViewDataSource {
 
 extension EventManager: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        return 
+        return
     }
 }
 
