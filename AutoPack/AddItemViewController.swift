@@ -17,7 +17,7 @@ class AddItemViewController: UIViewController {
     
     public var event: EKEvent!
     public var items: [Item]!
-    public var selectedItems: [Item]!
+    public var selectedItems: [Item]?
     public var delegate: EventViewController!
     
     override func viewDidLoad() {
@@ -32,21 +32,23 @@ class AddItemViewController: UIViewController {
     }
 
     @IBAction func submitItems(_ sender: Any) {
+        selectedItems = []
         if let indices = itemTable.indexPathsForSelectedRows {
-            selectedItems = []
             for index in indices {
-                selectedItems.append(items[index.row])
+                selectedItems!.append(items[index.row])
             }
         }
         dismiss(animated: true) {
-            self.delegate.modalDismissed(event: self.event, items: self.selectedItems)
+            self.delegate.modalDismissed(event: self.event, items: self.selectedItems!)
         }
     }
     
     private func updateSelectedItems() {
-        for item in selectedItems {
-            if let index = items.firstIndex(where: { (i) -> Bool in i == item }) {
-            itemTable.selectRow(at: IndexPath(row: index, section: 0), animated: false, scrollPosition: .top)
+        if let sItems = selectedItems {
+            for item in sItems {
+                if let index = items.firstIndex(where: { (i) -> Bool in i == item }) {
+                itemTable.selectRow(at: IndexPath(row: index, section: 0), animated: false, scrollPosition: .top)
+                }
             }
         }
     }

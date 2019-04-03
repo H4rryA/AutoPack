@@ -59,7 +59,7 @@ class EventManager: NSObject {
                 notes = String(notes[..<index])
             }
         }
-        event.notes = notes + eventItems
+        event.notes = notes + (items.count != 0 ? eventItems : "")
         do {
             try store.save(event, span: .futureEvents)
         } catch {

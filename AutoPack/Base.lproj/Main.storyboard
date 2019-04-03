@@ -73,7 +73,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M9J-4P-2nI">
                                 <rect key="frame" x="15" y="817" width="384" height="30"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Submit"/>
                                 <connections>
                                     <action selector="submitItems:" destination="wlp-V1-qh5" eventType="touchUpInside" id="xIL-Mo-WHH"/>
                                 </connections>
