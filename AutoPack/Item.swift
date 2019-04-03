@@ -11,11 +11,9 @@ import Foundation
 class Item {
     private var rfid: String
     public var name: String
-    public var pocket: Int
     
-    init(rfid: String, name: String, pocket: Int) {
+    init(rfid: String, name: String) {
         self.rfid = rfid
         self.name = name
-        self.pocket = pocket
     }
 }
