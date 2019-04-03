@@ -17,11 +17,19 @@ class ViewController: UIViewController {
     private var items: [[Item]?]!
     private var centralManager: CBCentralManager!
     
+    private var connectedDevice: CBPeripheral?
+    private var deviceServices: [CBService]?
+    private var deviceCharacteristics: [CBService: [CBCharacteristic]]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Initialize Bluetooth
         centralManager = CBCentralManager(delegate: self, queue: nil)
+        centralManager.scanForPeripherals(withServices: nil, options: nil)
+        
+        // Stop scan if no device is found in five seconds
+        DispatchQueue.main.perform(#selector(centralManager.stopScan), with: nil, afterDelay: 5)
         
         // Initialize View
         startViewController = StartViewController()
@@ -71,6 +79,36 @@ extension ViewController: CBCentralManagerDelegate {
         @unknown default:
             print("central.state is default")
         }
+    }
+    
+    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+        NSLog("Discovered Device %@", peripheral.name ?? "Unknown")
+        connectedDevice = peripheral
+        centralManager.stopScan()
+        centralManager.connect(peripheral, options: nil)
+    }
+    
+    func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+        peripheral.delegate = self as CBPeripheralDelegate
+        peripheral.discoverServices(nil)
+    }
+}
+
+extension ViewController: CBPeripheralDelegate {
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        guard let services = peripheral.services else { return }
+        
+        deviceServices = services
+        deviceCharacteristics = [CBService: [CBCharacteristic]]()
+        for service in services {
+            peripheral.discoverCharacteristics(nil, for: service)
+        }
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+        guard let characteristics = service.characteristics else { return }
+        
+        deviceCharacteristics![service] = characteristics
     }
 }
 
