@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     private var startViewController: StartViewController!
     @IBOutlet weak var tableView: UITableView!
     
-    private var items: [[Item]?]!
+    private var items: [[Item]]!
     private var centralManager: CBCentralManager!
     
     private var connectedDevice: CBPeripheral?
@@ -36,6 +36,7 @@ class ViewController: UIViewController {
         startViewController = StartViewController()
         startViewController.homeView = self.view
         startViewController.fullScreen = self.view.frame
+        startViewController.delegate = self
         navigationController?.addChild(startViewController)
         
         setupView()
@@ -121,8 +122,8 @@ extension ViewController: CBPeripheralDelegate {
 
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let count = items?[section]?.count{
-            return count
+        if items.count > section {
+            return items[section].count
         } else {
             return 0
         }
@@ -136,7 +137,7 @@ extension ViewController: UITableViewDataSource {
         if cell == nil {
             cell = UITableViewCell()
         }
-        cell!.textLabel?.text = items[pocket]?[item].name ?? "Unknown Item"
+        cell!.textLabel?.text = items[pocket][item].name
         
         return cell!
     }
@@ -151,3 +152,8 @@ extension ViewController: UITableViewDataSource {
     
 }
 
+extension ViewController: StartVCDelegate {
+    func getItems() -> [Item] {
+        return self.items.flatMap({ $0 })
+    }
+}

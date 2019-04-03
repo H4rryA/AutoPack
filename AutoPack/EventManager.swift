@@ -47,11 +47,10 @@ class EventManager: NSObject {
     }
     
     func edit(event: EKEvent, with items: [Item]) {
-        var eventItems = "\n🎒\n AutoPack\n"
+        var eventItems = "\n🎒\nAutoPack\n"
         for item in items {
             eventItems += "\n" + item.name
         }
-        eventItems += "\n🎒"
         
         var notes = ""
         if event.hasNotes {
@@ -66,6 +65,7 @@ class EventManager: NSObject {
         } catch {
             print(error)
         }
+        findEvents()
     }
 }
 
@@ -78,7 +78,22 @@ extension EventManager: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath) as! EventCell
         
         cell.nameLabel.text  = events[indexPath.row].title
-        cell.itemsLabel.text = events[indexPath.row].notes
+        
+        var notes = ""
+        if events[indexPath.row].hasNotes {
+            notes = events[indexPath.row].notes!
+            if let index = notes.firstIndex(of: "🎒")  {
+                notes = String(notes[notes.index(index, offsetBy: 11)...])
+                let items = notes.split(separator: "\n")
+                notes = ""
+                for item in items {
+                    notes += notes.count == 0 ? "" : ", "
+                    notes += item
+                }
+            }
+        }
+        
+        cell.itemsLabel.text = notes
         
         if let startDate = events[indexPath.row].startDate,
             let endDate   = events[indexPath.row].endDate {
@@ -101,10 +116,12 @@ extension EventManager: UITableViewDataSource {
 
 extension EventManager: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate.presentModal(event: events[indexPath.row])
         return
     }
 }
 
 protocol EventManagerDelegate {
     func reloadTable()
+    func presentModal(event: EKEvent)
 }

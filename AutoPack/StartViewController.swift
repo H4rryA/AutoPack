@@ -19,6 +19,7 @@ class StartViewController: UIViewController {
     public var fullScreen: CGRect!
     
     private var eventManager: EventManager!
+    public var delegate: StartVCDelegate!
     
     private var startHeight: CGFloat {
         return UIScreen.main.bounds.height - 200
@@ -157,10 +158,23 @@ class StartViewController: UIViewController {
 }
 
 extension StartViewController: EventManagerDelegate {
+    func presentModal(event: EKEvent) {
+        if let addItemVC = parent?.storyboard?.instantiateViewController(withIdentifier: "addItemViewController") as? AddItemViewController {
+            addItemVC.event = event
+            addItemVC.items = delegate.getItems()
+            addItemVC.delegate = self
+            present(addItemVC, animated: true, completion: nil)
+        }
+    }
+    
     func reloadTable() {
         DispatchQueue.main.async {
             self.eventTable.reloadData()
         }
+    }
+    
+    func modalDismissed(event: EKEvent, items: [Item]) {
+        self.eventManager.edit(event: event, with: items)
     }
 }
 
@@ -169,4 +183,8 @@ class EventCell: UITableViewCell {
     @IBOutlet weak var itemsLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+}
+
+protocol StartVCDelegate {
+    func getItems() -> [Item]
 }
