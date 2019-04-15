@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 class MainTabController: UITabBarController {
     
@@ -26,6 +27,18 @@ class MainTabController: UITabBarController {
                 default:
                     break
                 }
+            }
+        }
+        
+        initNotifications()
+        
+    }
+    
+    private func initNotifications() {
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+            if let message = error?.localizedDescription {
+                print(message)
             }
         }
     }

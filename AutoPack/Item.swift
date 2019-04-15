@@ -8,14 +8,13 @@
 
 import Foundation
 
-class Item {
-    private var rfid: String
+struct Item: Codable {
+    public var rfid: String
     public var name: String
-    
-    init(rfid: String, name: String) {
-        self.rfid = rfid
-        self.name = name
-    }
+}
+
+struct ItemArray: Codable {
+    public var items: [Item]
 }
 
 extension Item: Equatable {

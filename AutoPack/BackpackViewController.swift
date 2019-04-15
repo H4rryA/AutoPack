@@ -41,16 +41,37 @@ class BackpackViewController: UIViewController {
         items = []
         tableView.dataSource = self
         
-        let mathNotebook = Item(rfid: "1", name: "Math Notebook")
-        let englishNotebook = Item(rfid: "2", name: "English Notebook")
-        let laptop = Item(rfid: "0", name: "Laptop")
-        let water = Item(rfid: "3", name: "Water Bottle")
+        let decoder = JSONDecoder()
+        for i in (0...2) {
+            if let data = UserDefaults.standard.object(forKey: ITEM_ARRAY_KEY + String(i)) as? Data {
+                if let i = try? decoder.decode(ItemArray.self, from: data) {
+                    items.append(i.items)
+                }
+            } else {
+                items.append([])
+            }
+        }
         
-        items = [[mathNotebook, englishNotebook], [laptop], [water]]
+        if items.flatMap({$0}).count == 0 {
+            let mathNotebook = Item(rfid: "1", name: "Math Notebook")
+            let englishNotebook = Item(rfid: "2", name: "English Notebook")
+            let laptop = Item(rfid: "0", name: "Laptop")
+            let water = Item(rfid: "3", name: "Water Bottle")
+            
+            items = [[mathNotebook, englishNotebook], [laptop], [water]]
+        }
         
-        //let defaults = UserDefaults.standard
-        //items.append(defaults.array(forKey: ITEM_ARRAY_KEY + "0") as? [Item])
-        //items.append(defaults.array(forKey: ITEM_ARRAY_KEY + "1") as? [Item])
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        let encoder = JSONEncoder()
+        let defaults = UserDefaults.standard
+        for i in (0..<items.count) {
+            if let encoded = try? encoder.encode(ItemArray(items: items[i])) {
+                defaults.set(encoded, forKey: ITEM_ARRAY_KEY + String(i))
+            }
+        }
+        UserDefaults.standard.synchronize()
     }
 }
 

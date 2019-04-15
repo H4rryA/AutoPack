@@ -46,7 +46,7 @@ extension EventViewController: EventManagerDelegate {
             addItemVC.event = event
             addItemVC.items = delegate.getItems()
             if let notes = event.notes {
-                addItemVC.selectedItems = findItems(with: notes)
+                addItemVC.selectedItems = eventManager.findItems(with: notes, givenItems: delegate.getItems())
             }
             addItemVC.delegate = self
             present(addItemVC, animated: true, completion: nil)
@@ -61,24 +61,6 @@ extension EventViewController: EventManagerDelegate {
     
     func modalDismissed(event: EKEvent, items: [Item]) {
         self.eventManager.edit(event: event, with: items)
-    }
-    
-    func findItems(with notes: String) -> [Item] {
-        var itemNames = [String.SubSequence]()
-        if let index = notes.firstIndex(of: "🎒")  {
-            itemNames = String(notes[notes.index(index, offsetBy: 11)...]).split(separator: "\n")
-        }
-        
-        var items = [Item]()
-        for item in delegate.getItems() {
-            for name in itemNames {
-                if item.name == name {
-                    items.append(item)
-                    break
-                }
-            }
-        }
-        return items
     }
 }
 
