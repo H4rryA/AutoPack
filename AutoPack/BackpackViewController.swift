@@ -6,6 +6,8 @@
 //
 
 import CoreBluetooth
+import ExternalAccessory
+import Siesta
 import UIKit
 
 class BackpackViewController: UIViewController {
@@ -15,114 +17,60 @@ class BackpackViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var navigationBar: UINavigationBar!
     
-    private var items: [[Item]]!
-    private var centralManager: CBCentralManager!
+    private var statusOverlay = ResourceStatusOverlay()
     
-    private var connectedDevice: CBPeripheral?
-    private var deviceServices: [CBService]?
-    private var deviceCharacteristics: [CBService: [CBCharacteristic]]?
+    private var items: [[Item]]! {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    private var itemDict: [[String: Any]]? {
+        didSet {
+            print(itemDict ?? [])
+            items = [[],[],[]]
+            for item in itemDict! {
+                items[item["status"] as! Int].append(Item(rfid: item["RFID"] as! String, name: item["name"] as! String))
+            }
+        }
+    }
+    private var itemsResource: Resource? {
+        didSet {
+            oldValue?.removeObservers(ownedBy: self)
+            itemsResource?
+                .addObserver(self)
+                .addObserver(statusOverlay, owner: self)
+                .loadIfNeeded()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Initialize Bluetooth
-        centralManager = CBCentralManager(delegate: self, queue: nil)
-        centralManager.scanForPeripherals(withServices: nil, options: nil)
-        
-        // Stop scan if no device is found in five seconds
-        //DispatchQueue.main.perform(#selector(View), with: nil, afterDelay: 5)
-        
         // Initialize View
         navigationBar.topItem?.title = "AutoPack"
         setupTable()
+        statusOverlay.embed(in: self)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        statusOverlay.positionToCoverParent()
     }
     
     private func setupTable() {
-        items = []
+        items = [[],[],[]]
         tableView.dataSource = self
-        
-        let decoder = JSONDecoder()
-        for i in (0...2) {
-            if let data = UserDefaults.standard.object(forKey: ITEM_ARRAY_KEY + String(i)) as? Data {
-                if let i = try? decoder.decode(ItemArray.self, from: data) {
-                    items.append(i.items)
-                }
-            } else {
-                items.append([])
-            }
-        }
-        
-        if items.flatMap({$0}).count == 0 {
-            let mathNotebook = Item(rfid: "1", name: "Math Notebook")
-            let englishNotebook = Item(rfid: "2", name: "English Notebook")
-            let laptop = Item(rfid: "0", name: "Laptop")
-            let water = Item(rfid: "3", name: "Water Bottle")
-            
-            items = [[mathNotebook, englishNotebook], [laptop], [water]]
-        }
-        
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        let encoder = JSONEncoder()
-        let defaults = UserDefaults.standard
-        for i in (0..<items.count) {
-            if let encoded = try? encoder.encode(ItemArray(items: items[i])) {
-                defaults.set(encoded, forKey: ITEM_ARRAY_KEY + String(i))
-            }
-        }
-        UserDefaults.standard.synchronize()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        itemsResource = ItemAPI.sharedInstance.itemList()
     }
 }
 
-extension BackpackViewController: CBCentralManagerDelegate {
-    func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        switch central.state {
-        case .unknown:
-            print("central.state is .unknown")
-        case .resetting:
-            print("central.state is .resetting")
-        case .unsupported:
-            print("central.state is .unsupported")
-        case .unauthorized:
-            print("central.state is .unauthorized")
-        case .poweredOff:
-            print("central.state is .poweredOff")
-        case .poweredOn:
-            print("central.state is .poweredOn")
-        @unknown default:
-            print("central.state is default")
-        }
-    }
-    
-    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        NSLog("Discovered Device %@", peripheral.name ?? "Unknown")
-        connectedDevice = peripheral
-        centralManager.stopScan()
-        centralManager.connect(peripheral, options: nil)
-    }
-    
-    func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        peripheral.delegate = self as CBPeripheralDelegate
-        peripheral.discoverServices(nil)
-    }
-}
-
-extension BackpackViewController: CBPeripheralDelegate {
-    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
-        guard let services = peripheral.services else { return }
-        
-        deviceServices = services
-        deviceCharacteristics = [CBService: [CBCharacteristic]]()
-        for service in services {
-            peripheral.discoverCharacteristics(nil, for: service)
-        }
-    }
-    
-    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
-        guard let characteristics = service.characteristics else { return }
-        
-        deviceCharacteristics![service] = characteristics
+extension BackpackViewController: ResourceObserver {
+    func resourceChanged(_ resource: Resource, event: ResourceEvent) {
+        itemDict = resource.jsonArray as? [[String: Any]] ?? []
     }
 }
 
